@@ -1,10 +1,10 @@
 cmake_policy(SET CMP0048 NEW)
+cmake_minimum_required(VERSION 3.15...3.27)
+
 project(
   ${SKBUILD_PROJECT_NAME}
   VERSION ${SKBUILD_PROJECT_VERSION}
   LANGUAGES CXX)
-
-cmake_minimum_required(VERSION 3.15...3.27)
 
 option(BUILD_PYTHON_BINDING "Build Python Binding" off)
 
@@ -26,7 +26,12 @@ add_executable(b1_7dof_arm_low_sdk_example example/low_level/b1_7dof_arm_low_sdk
 add_executable(odometer_example example/low_level/odometer_example.cpp)
 
 
-include_directories(BEFORE $(PROJECT_SOURCE_DIR)/include)
+include_directories(BEFORE ${PROJECT_SOURCE_DIR}/include)
+# include_directories(${PROJECT_SOURCE_DIR}/third_party/include)
+
+# # Add library directories
+# link_directories(${PROJECT_SOURCE_DIR}/lib/x86_64)
+# link_directories(${PROJECT_SOURCE_DIR}/third_party/lib/x86_64)
 
 if(BUILD_PYTHON_BINDING)
     find_package(Python3 REQUIRED COMPONENTS Interpreter Development.Module)
